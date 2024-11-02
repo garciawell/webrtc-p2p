@@ -7,7 +7,7 @@ import socket from './socket'
 import myPeer from 'peerjs'
 
 const constraints = {
-  audio: false,
+  audio: true,
   video: true
 };
 
