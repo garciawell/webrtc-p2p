@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server , {
+const path = require('path');
+const io = require('socket.io')(server, {
   cors: {
     origin: '*',
   }
@@ -12,14 +13,21 @@ app.get('/:room', (req, res) => {
   res.send({ room: req.params.room });
 })
 
+app.use('/assets', express.static(__dirname + '/assets'));
+
+// This will render your frontend at http://localhost:PORT/
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'index.html'));
+});
+
 
 io.on('connection', (socket) => {
   socket.on('join-room', (roomId, userId) => {
     console.log('roomId', roomId);
     socket.join(roomId);
-     socket.broadcast.to(roomId).emit('user-connected', userId);
+    socket.broadcast.to(roomId).emit('user-connected', userId);
 
-     socket.on('disconnect', () => { 
+    socket.on('disconnect', () => {
       socket.broadcast.to(roomId).emit('user-disconnected', userId);
     });
   })
