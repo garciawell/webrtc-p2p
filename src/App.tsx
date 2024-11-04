@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import React from 'react'
-import socket from './socket'
 import myPeer from 'peerjs'
+import React, { useEffect, useState } from 'react'
+import './App.css'
+import socket from './socket'
 
 const constraints = {
   audio: true,
@@ -17,7 +14,6 @@ const peer = new myPeer()
 
 
 function App() {
-  const [count, setCount] = useState(0)
   const localRef = React.useRef<HTMLVideoElement>(null);
   const remoteRef = React.useRef<HTMLVideoElement>(null);
   const [remote, setRemote] = useState(false);
@@ -98,30 +94,11 @@ function App() {
 
   return (
     <>
-      <div className='flex bg-fuchsia-950  '>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1 className='font-bold'>Videoconferência POC</h1>
 
-      <div className="flex">
-        <video className='w-96 h-96 m-2' ref={localRef} autoPlay playsInline />
-        <video className={`w-96 h-96 m-2 ${remote ? 'block' : 'hidden'}`} ref={remoteRef} autoPlay playsInline />
+      <div className="flex justify-center mt-8">
+        <video className='local w-2/4 h-[450px] m-2' ref={localRef} autoPlay playsInline />
+        <video className={`remote w-2/4 h-[450px] m-2 ${remote ? 'block' : 'hidden'}`} ref={remoteRef} autoPlay playsInline />
       </div>
     </>
   )

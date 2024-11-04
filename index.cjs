@@ -13,11 +13,11 @@ app.get('/:room', (req, res) => {
   res.send({ room: req.params.room });
 })
 
-app.use('/assets', express.static(__dirname + '/assets'));
+app.use('/assets', express.static(__dirname +  '/dist/assets'));
 
 // This will render your frontend at http://localhost:PORT/
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
 
