@@ -1,4 +1,4 @@
-import myPeer from 'peerjs'
+import Peer from 'peerjs'
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import socket from './socket'
@@ -9,7 +9,14 @@ const constraints = {
 };
 
 
-const peer = new myPeer()
+const peer = new Peer({
+	config: {'iceServers': [
+	  { url: 'stun:stun.l.google.com:19302' },
+	  { url: 'stun:stun1.l.google.com:19302' },
+	  { url: 'stun:stun2.l.google.com:19302' },
+	  { url: 'stun:stun3.l.google.com:19302' },
+	]} /* Sample servers, please use appropriate ones */
+  });
 
 
 
