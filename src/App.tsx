@@ -7,11 +7,39 @@ const constraints = {
   audio: true,
   video: true
 };
- 
+
 
 const peer = new Peer({
   path: '/peerjs',
   host: 'concrete-kelly-garcia-2cd3d48b.koyeb.app',
+  config: {
+    'iceServers': [
+      {
+        urls: "stun:stun.relay.metered.ca:80",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:80",
+        username: "35060b797397c62c3a289143",
+        credential: "yPJEBHy/CjnHpT0i",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:80?transport=tcp",
+        username: "35060b797397c62c3a289143",
+        credential: "yPJEBHy/CjnHpT0i",
+      },
+      {
+        urls: "turn:global.relay.metered.ca:443",
+        username: "35060b797397c62c3a289143",
+        credential: "yPJEBHy/CjnHpT0i",
+      },
+      {
+        urls: "turns:global.relay.metered.ca:443?transport=tcp",
+        username: "35060b797397c62c3a289143",
+        credential: "yPJEBHy/CjnHpT0i",
+      },
+
+    ]
+  }
 });
 
 
@@ -82,7 +110,7 @@ function App() {
       <h1 className='font-bold'>Videoconferência POC</h1>
 
       <div className="flex justify-center mt-8">
-        <video className='local w-2/4 h-[450px] m-2' ref={localRef} autoPlay playsInline  muted />
+        <video className='local w-2/4 h-[450px] m-2' ref={localRef} autoPlay playsInline muted />
         <video className={`remote w-2/4 h-[450px] m-2 ${remote ? 'block' : 'hidden'}`} ref={remoteRef} autoPlay playsInline />
       </div>
     </>
