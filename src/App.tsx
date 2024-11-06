@@ -10,9 +10,8 @@ const constraints = {
  
 
 const peer = new Peer({
-  host: '/',
-  port: 3000,
-  path: '/peerjs'
+  path: '/',
+  host: 'concrete-kelly-garcia-2cd3d48b.koyeb.app',
 });
 
 
@@ -83,7 +82,7 @@ function App() {
       <h1 className='font-bold'>Videoconferência POC</h1>
 
       <div className="flex justify-center mt-8">
-        <video className='local w-2/4 h-[450px] m-2' ref={localRef} autoPlay playsInline />
+        <video className='local w-2/4 h-[450px] m-2' ref={localRef} autoPlay playsInline  muted />
         <video className={`remote w-2/4 h-[450px] m-2 ${remote ? 'block' : 'hidden'}`} ref={remoteRef} autoPlay playsInline />
       </div>
     </>
