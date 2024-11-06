@@ -10,7 +10,7 @@ const constraints = {
  
 
 const peer = new Peer({
-  path: '/',
+  path: '/peerjs',
   host: 'concrete-kelly-garcia-2cd3d48b.koyeb.app',
 });
 

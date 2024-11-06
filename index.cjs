@@ -9,21 +9,21 @@ const io = require('socket.io')(server, {
   }
 });
 
-  // Create a PeerJS server instance
-  const peerServer = ExpressPeerServer(server, {
-    debug: true
+// Create a PeerJS server instance
+const peerServer = ExpressPeerServer(server, {
+  debug: true
 });
 
 
-   // Mount the PeerJS server on the /peerjs route
-   app.use('/peerjs', peerServer);
+// Mount the PeerJS server on the /peerjs route
+app.use('/peerjs', peerServer);
 
 // 1f63db9a-ec11-4710-9bc4-3901a8e0d9c0
 app.get('/:room', (req, res) => {
   res.send({ room: req.params.room });
 })
 
-app.use('/assets', express.static(__dirname +  '/dist/assets'));
+app.use('/assets', express.static(__dirname + '/dist/assets'));
 
 // This will render your frontend at http://localhost:PORT/
 app.get('/', (req, res) => {
