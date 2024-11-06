@@ -11,40 +11,40 @@ const constraints = {
 const peer = new Peer({
   path: '/peerjs',
   host: 'concrete-kelly-garcia-2cd3d48b.koyeb.app',
-  config: {
-    'iceServers': [
-      {
-        urls: "stun1.l.google.com:19302",
-      },
-      {
-        urls: "stun1.voiceeclipse.net:3478",
-      },
-      {
-        urls: "stun2.l.google.com:19302",
-      },
-      {
-        urls: "stun3.l.google.com:19302",
-      },
-      {
-        urls: "stun4.l.google.com:19302",
-      },
-      {
-        urls: "stunserver.org:3478",
-      },
-      {
-        urls: "relay.webwormhole.io",
-      },
-      {
-        urls: "stun:stun.relay.metered.ca:80",
-      },
-      {
-        urls: "stun:stun.relay.metered.ca:80",
-      },
-      {
-        urls: "stun:stun.relay.metered.ca:80",
-      }
-    ]
-  }
+  // config: {
+  //   'iceServers': [
+  //     {
+  //       urls: "stun1.l.google.com:19302",
+  //     },
+  //     {
+  //       urls: "stun1.voiceeclipse.net:3478",
+  //     },
+  //     {
+  //       urls: "stun2.l.google.com:19302",
+  //     },
+  //     {
+  //       urls: "stun3.l.google.com:19302",
+  //     },
+  //     {
+  //       urls: "stun4.l.google.com:19302",
+  //     },
+  //     {
+  //       urls: "stunserver.org:3478",
+  //     },
+  //     {
+  //       urls: "relay.webwormhole.io",
+  //     },
+  //     {
+  //       urls: "stun:stun.relay.metered.ca:80",
+  //     },
+  //     {
+  //       urls: "stun:stun.relay.metered.ca:80",
+  //     },
+  //     {
+  //       urls: "stun:stun.relay.metered.ca:80",
+  //     }
+  //   ]
+  // }
 });
 
 
