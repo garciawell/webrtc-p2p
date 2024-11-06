@@ -18,26 +18,25 @@ const peer = new Peer({
         urls: "stun:stun.relay.metered.ca:80",
       },
       {
-        urls: "turn:global.relay.metered.ca:80",
+        urls: "turn:br.relay.metered.ca:80",
         username: "35060b797397c62c3a289143",
         credential: "yPJEBHy/CjnHpT0i",
       },
       {
-        urls: "turn:global.relay.metered.ca:80?transport=tcp",
+        urls: "turn:br.relay.metered.ca:80?transport=tcp",
         username: "35060b797397c62c3a289143",
         credential: "yPJEBHy/CjnHpT0i",
       },
       {
-        urls: "turn:global.relay.metered.ca:443",
+        urls: "turn:br.relay.metered.ca:443",
         username: "35060b797397c62c3a289143",
         credential: "yPJEBHy/CjnHpT0i",
       },
       {
-        urls: "turns:global.relay.metered.ca:443?transport=tcp",
+        urls: "turns:br.relay.metered.ca:443?transport=tcp",
         username: "35060b797397c62c3a289143",
         credential: "yPJEBHy/CjnHpT0i",
-      },
-
+      }
     ]
   }
 });
