@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const { ExpressPeerServer } = require('peer');
 const server = require('http').createServer(app);
 const path = require('path');
 const io = require('socket.io')(server, {
@@ -7,6 +8,15 @@ const io = require('socket.io')(server, {
     origin: '*',
   }
 });
+
+  // Create a PeerJS server instance
+  const peerServer = ExpressPeerServer(server, {
+    debug: true
+});
+
+
+   // Mount the PeerJS server on the /peerjs route
+   app.use('/peerjs', peerServer);
 
 // 1f63db9a-ec11-4710-9bc4-3901a8e0d9c0
 app.get('/:room', (req, res) => {

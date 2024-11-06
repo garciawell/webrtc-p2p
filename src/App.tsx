@@ -7,16 +7,13 @@ const constraints = {
   audio: true,
   video: true
 };
-
+ 
 
 const peer = new Peer({
-	config: {'iceServers': [
-	  { url: 'stun:stun.l.google.com:19302' },
-	  { url: 'stun:stun1.l.google.com:19302' },
-	  { url: 'stun:stun2.l.google.com:19302' },
-	  { url: 'stun:stun3.l.google.com:19302' },
-	]} /* Sample servers, please use appropriate ones */
-  });
+  host: '/',
+  port: 3000,
+  path: '/peerjs'
+});
 
 
 
@@ -72,24 +69,6 @@ function App() {
     }
     )
   }, [])
-
-  useEffect(() => {
-    function onConnect() {
-      console.log("CONETADO MALANDRO!!")
-    }
-
-    function onDisconnect() {
-      console.log("DESCONETADO MALANDRO!!")
-    }
-
-
-    socket.on('connect', onConnect);
-
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-    };
-  }, []);
 
   useEffect(() => {
     peer.on('open', (id) => {
