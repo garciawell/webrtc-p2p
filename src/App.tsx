@@ -26,6 +26,16 @@ const peer = new Peer({
         urls: "turn:garciawell.com:3478?transport=tcp",
         username: "garciawell",
         credential: "qwer1234"
+      },
+      {
+        urls: "turn:garciawell.com:443",
+        username: "garciawell",
+        credential: "qwer1234"
+      },
+      {
+        urls: "turn:garciawell.com:443?transport=tcp",
+        username: "garciawell",
+        credential: "qwer1234"
       }
     ]
   }
