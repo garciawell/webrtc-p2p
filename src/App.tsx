@@ -17,26 +17,26 @@ const peer = new Peer({
       {
         urls: "stun:garciawell.com:3478",
       },
-      {
-        urls: "turn:garciawell.com:3478",
-        username: "garciawell",
-        credential: "qwer1234"
-      },
-      {
-        urls: "turn:garciawell.com:3478?transport=tcp",
-        username: "garciawell",
-        credential: "qwer1234"
-      },
-      {
-        urls: "turn:garciawell.com:443",
-        username: "garciawell",
-        credential: "qwer1234"
-      },
-      {
-        urls: "turn:garciawell.com:443?transport=tcp",
-        username: "garciawell",
-        credential: "qwer1234"
-      }
+      // {
+      //   urls: "turn:garciawell.com:3478",
+      //   username: "garciawell",
+      //   credential: "qwer1234"
+      // },
+      // {
+      //   urls: "turn:garciawell.com:3478?transport=tcp",
+      //   username: "garciawell",
+      //   credential: "qwer1234"
+      // },
+      // {
+      //   urls: "turn:garciawell.com:443",
+      //   username: "garciawell",
+      //   credential: "qwer1234"
+      // },
+      // {
+      //   urls: "turn:garciawell.com:443?transport=tcp",
+      //   username: "garciawell",
+      //   credential: "qwer1234"
+      // }
     ]
   }
 });
