@@ -1,7 +1,6 @@
 import Peer from 'peerjs'
 import React, { useEffect, useState } from 'react'
 import './App.css'
-import { invokeSaveAsDialog, RecordRTCPromisesHandler } from "recordrtc"
 import socket from './socket'
 
 const constraints = {
@@ -48,22 +47,6 @@ function App() {
   const localRef = React.useRef<HTMLVideoElement>(null);
   const remoteRef = React.useRef<HTMLVideoElement>(null);
   const [remote, setRemote] = useState(false);
-  const listofStreams = [];
-
-  async function recordVideo(stream: MediaStream) {
-    const recorder = new RecordRTCPromisesHandler(stream, {
-      type: 'video',
-      mimeType: 'video/webm;codecs=vp8',
-    });
-    recorder.startRecording();
-
-    const sleep = m => new Promise(r => setTimeout(r, m));
-    await sleep(3000);
-
-    await recorder.stopRecording();
-    const blob = await recorder.getBlob();
-    invokeSaveAsDialog(blob);
-  }
 
   async function getUserMedia(constraints: MediaStreamConstraints) {
     let stream = null;
@@ -89,14 +72,11 @@ function App() {
   useEffect(() => {
     getUserMedia(constraints).then((stream) => {
       if (localRef.current) localRef.current.srcObject = stream;
-      listofStreams.push(stream)
-      recordVideo(listofStreams as any)
 
       peer.on('call', (call) => {
         call.answer(stream!)
         call.on('stream', (userVideoStream) => {
           if (remoteRef.current) remoteRef.current.srcObject = userVideoStream
-          listofStreams.push(userVideoStream)
           setRemote(true);
         })
       })
