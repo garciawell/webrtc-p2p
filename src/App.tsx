@@ -1,6 +1,7 @@
 import Peer from 'peerjs'
 import React, { useEffect, useState } from 'react'
 import './App.css'
+import { invokeSaveAsDialog, RecordRTCPromisesHandler } from "recordrtc"
 import socket from './socket'
 
 const constraints = {
@@ -15,28 +16,28 @@ const peer = new Peer({
   config: {
     'iceServers': [
       {
-        urls: "stun:garciawell.com:3478",
+        urls: "stun:98.84.31.110:3478",
       },
-      // {
-      //   urls: "turn:garciawell.com:3478",
-      //   username: "garciawell",
-      //   credential: "qwer1234"
-      // },
-      // {
-      //   urls: "turn:garciawell.com:3478?transport=tcp",
-      //   username: "garciawell",
-      //   credential: "qwer1234"
-      // },
-      // {
-      //   urls: "turn:garciawell.com:443",
-      //   username: "garciawell",
-      //   credential: "qwer1234"
-      // },
-      // {
-      //   urls: "turn:garciawell.com:443?transport=tcp",
-      //   username: "garciawell",
-      //   credential: "qwer1234"
-      // }
+      {
+        urls: "turn:98.84.31.110:3478",
+        username: "garciawell",
+        credential: "qwer1234"
+      },
+      {
+        urls: "turn:98.84.31.110:3478?transport=tcp",
+        username: "garciawell",
+        credential: "qwer1234"
+      },
+      {
+        urls: "turn:98.84.31.110:443",
+        username: "garciawell",
+        credential: "qwer1234"
+      },
+      {
+        urls: "turn:98.84.31.110:443?transport=tcp",
+        username: "garciawell",
+        credential: "qwer1234"
+      }
     ]
   }
 });
@@ -47,8 +48,22 @@ function App() {
   const localRef = React.useRef<HTMLVideoElement>(null);
   const remoteRef = React.useRef<HTMLVideoElement>(null);
   const [remote, setRemote] = useState(false);
+  const listofStreams = [];
 
+  async function recordVideo(stream: MediaStream) {
+    const recorder = new RecordRTCPromisesHandler(stream, {
+      type: 'video',
+      mimeType: 'video/webm;codecs=vp8',
+    });
+    recorder.startRecording();
 
+    const sleep = m => new Promise(r => setTimeout(r, m));
+    await sleep(3000);
+
+    await recorder.stopRecording();
+    const blob = await recorder.getBlob();
+    invokeSaveAsDialog(blob);
+  }
 
   async function getUserMedia(constraints: MediaStreamConstraints) {
     let stream = null;
@@ -74,11 +89,14 @@ function App() {
   useEffect(() => {
     getUserMedia(constraints).then((stream) => {
       if (localRef.current) localRef.current.srcObject = stream;
+      listofStreams.push(stream)
+      recordVideo(listofStreams as any)
 
       peer.on('call', (call) => {
         call.answer(stream!)
         call.on('stream', (userVideoStream) => {
           if (remoteRef.current) remoteRef.current.srcObject = userVideoStream
+          listofStreams.push(userVideoStream)
           setRemote(true);
         })
       })
