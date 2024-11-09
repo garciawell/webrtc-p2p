@@ -1,7 +1,7 @@
 import Peer from 'peerjs'
 import React, { useEffect, useState } from 'react'
-import './App.css'
 import { invokeSaveAsDialog, RecordRTCPromisesHandler } from "recordrtc"
+import './App.css'
 import socket from './socket'
 
 const constraints = {
@@ -16,25 +16,25 @@ const peer = new Peer({
   config: {
     'iceServers': [
       {
-        urls: "stun:98.84.31.110:3478",
+        urls: "stun:garciawell.com:3478",
       },
       {
-        urls: "turn:98.84.31.110:3478",
+        urls: "turn:garciawell.com:3478",
         username: "garciawell",
         credential: "qwer1234"
       },
       {
-        urls: "turn:98.84.31.110:3478?transport=tcp",
+        urls: "turn:garciawell.com:3478?transport=tcp",
         username: "garciawell",
         credential: "qwer1234"
       },
       {
-        urls: "turn:98.84.31.110:443",
+        urls: "turn:garciawell.com:443",
         username: "garciawell",
         credential: "qwer1234"
       },
       {
-        urls: "turn:98.84.31.110:443?transport=tcp",
+        urls: "turn:garciawell.com:443?transport=tcp",
         username: "garciawell",
         credential: "qwer1234"
       }
@@ -42,27 +42,23 @@ const peer = new Peer({
   }
 });
 
-
+const listofStreams = [] as MediaStream[];
+let recorder: RecordRTCPromisesHandler | null = null;
 
 function App() {
   const localRef = React.useRef<HTMLVideoElement>(null);
   const remoteRef = React.useRef<HTMLVideoElement>(null);
   const [remote, setRemote] = useState(false);
-  const listofStreams = [];
 
-  async function recordVideo(stream: MediaStream) {
-    const recorder = new RecordRTCPromisesHandler(stream, {
+
+
+
+  async function startRecording(stream: MediaStream[]) {
+    recorder = new RecordRTCPromisesHandler(stream as unknown as MediaStream, {
       type: 'video',
       mimeType: 'video/webm;codecs=vp8',
     });
     recorder.startRecording();
-
-    const sleep = m => new Promise(r => setTimeout(r, m));
-    await sleep(3000);
-
-    await recorder.stopRecording();
-    const blob = await recorder.getBlob();
-    invokeSaveAsDialog(blob);
   }
 
   async function getUserMedia(constraints: MediaStreamConstraints) {
@@ -85,12 +81,17 @@ function App() {
     })
   }
 
+  async function stopRecording() {
+    await recorder?.stopRecording();
+    const blob = await recorder?.getBlob();
+    invokeSaveAsDialog(blob!);
+  }
+
 
   useEffect(() => {
     getUserMedia(constraints).then((stream) => {
       if (localRef.current) localRef.current.srcObject = stream;
-      listofStreams.push(stream)
-      recordVideo(listofStreams as any)
+      listofStreams.push(stream!)
 
       peer.on('call', (call) => {
         call.answer(stream!)
@@ -122,6 +123,14 @@ function App() {
   }, [])
 
 
+  const removeDuplicateID = listofStreams.filter((thing, index, self) =>
+    index === self.findIndex((t) => (
+      t.id === thing.id
+    ))
+  )
+
+  console.log(removeDuplicateID)
+
   return (
     <>
       <h1 className='font-bold'>Videoconferência POC</h1>
@@ -130,6 +139,8 @@ function App() {
         <video className='local w-2/4 h-[450px] m-2' ref={localRef} autoPlay playsInline muted />
         <video className={`remote w-2/4 h-[450px] m-2 ${remote ? 'block' : 'hidden'}`} ref={remoteRef} autoPlay playsInline />
       </div>
+      <button className='bg-red-500 m-5 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' onClick={() => startRecording(removeDuplicateID)}>Start Record</button>
+      <button className='bg-blue-500 m-5  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => stopRecording()}>Stop Record</button>
     </>
   )
 }
