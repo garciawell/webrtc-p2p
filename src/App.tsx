@@ -15,28 +15,28 @@ const peer = new Peer({
   config: {
     'iceServers': [
       {
-        urls: "stun:98.84.31.110:3478",
+        urls: "stun:garciawell.com:3478",
       },
-      {
-        urls: "turn:98.84.31.110:3478",
-        username: "garciawell",
-        credential: "qwer1234"
-      },
-      {
-        urls: "turn:98.84.31.110:3478?transport=tcp",
-        username: "garciawell",
-        credential: "qwer1234"
-      },
-      {
-        urls: "turn:98.84.31.110:443",
-        username: "garciawell",
-        credential: "qwer1234"
-      },
-      {
-        urls: "turn:98.84.31.110:443?transport=tcp",
-        username: "garciawell",
-        credential: "qwer1234"
-      }
+      // {
+      //   urls: "turn:98.84.31.110:3478",
+      //   username: "garciawell",
+      //   credential: "qwer1234"
+      // },
+      // {
+      //   urls: "turn:98.84.31.110:3478?transport=tcp",
+      //   username: "garciawell",
+      //   credential: "qwer1234"
+      // },
+      // {
+      //   urls: "turn:98.84.31.110:443",
+      //   username: "garciawell",
+      //   credential: "qwer1234"
+      // },
+      // {
+      //   urls: "turn:98.84.31.110:443?transport=tcp",
+      //   username: "garciawell",
+      //   credential: "qwer1234"
+      // }
     ]
   }
 });
